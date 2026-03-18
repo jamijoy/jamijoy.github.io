@@ -314,6 +314,8 @@
       </div>
     </section><!-- End Contact Section -->
 
+    <div id="header"></div>
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -416,6 +418,13 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <script>
+    fetch('test.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      });
+  </script>
 </body>
 
 </html>

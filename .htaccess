@@ -11,3 +11,7 @@ RewriteRule ^([^\.]+)$ $1.html [L]
 # Optional: redirect .html URLs to clean URLs
 RewriteCond %{THE_REQUEST} \s/([^.]+)\.html [NC]
 RewriteRule ^ /%1 [R=301,L]
+
+Options +Includes
+AddType text/html .shtml
+AddOutputFilter INCLUDES .shtml
