@@ -194,7 +194,7 @@
 
           <div class="col-lg-5 col-md-8">
             <div class="form">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <form action="" method="post" role="form" id="contact-msg-save-form" class="php-email-form" type="multipart/form-data">
                 <div class="form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
@@ -205,7 +205,7 @@
                   <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
                 </div>
                 <div class="form-group mt-3">
-                  <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                  <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message" required></textarea>
                 </div>
                 <div class="my-3">
                   <div class="loading">Loading</div>
@@ -236,6 +236,7 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/jquery/jquery-4.0.0.min.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
