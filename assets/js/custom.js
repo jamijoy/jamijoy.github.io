@@ -33,6 +33,7 @@ $('#contact-msg-save-form').submit(function(e) {
     data: JSON.stringify(formData),
     contentType: "application/json",
     success: function(response) {
+      displayError(e, 'Your response has been received. We will get back to you shortly!');
       alert('Message sent successfully!');
     },
     error: function(err) {
