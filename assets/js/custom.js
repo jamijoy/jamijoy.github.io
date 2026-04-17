@@ -27,6 +27,10 @@ $('#contact-msg-save-form').submit(function(e) {
     formData[field.name] = field.value;
   });
 
+  // $(".error-message").classList.remove('d-block');
+  $(".error-message").show();
+  $(".error-message").innerHTML = 'Your response has been received. We will get back to you shortly!';
+
   $.ajax({
     type: 'POST',
     url: 'https://sms-service-scheduler-program.onrender.com/save-contact-form',
