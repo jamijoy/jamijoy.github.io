@@ -1,12 +1,15 @@
 RewriteEngine On
 
-# Set default index file
+# Set default index
 DirectoryIndex index.html
 
-# Remove .html extension from URL
+# Skip existing files and directories
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite clean URL to .html
 RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^([^\.]+)$ $1.html [L]
+RewriteRule ^(.+)$ $1.html [L]
 
 # Redirect .html → clean URL
 RewriteCond %{THE_REQUEST} \s/([^.]+)\.html [NC]
@@ -15,7 +18,7 @@ RewriteRule ^ /%1 [R=301,L]
 # Custom 404 page
 ErrorDocument 404 /404.html
 
-# Enable SSI
+# Enable SSI (optional)
 Options +Includes
 AddType text/html .shtml
 AddOutputFilter INCLUDES .shtml
