@@ -51,3 +51,18 @@ fetch('https://api.ipify.org?format=json')
   .then(data => {
     document.getElementById('ip-address').textContent = `Visitor IP: ${data.ip}`;
   });
+
+
+fetch('https://www.cloudflare.com/cdn-cgi/trace')
+  .then(res => res.text())
+  .then(data => {
+    const countryCode = data.match(/loc=([A-Z]+)/)[1].toLowerCase();
+
+    const flagUrl = `https://flagcdn.com/48x36/${countryCode}.png`;
+
+    document.getElementById('visitor-info').innerHTML = `
+      <p>Your country:</p>
+      <img src="${flagUrl}" />
+      <strong>${countryCode.toUpperCase()}</strong>
+    `;
+  });
