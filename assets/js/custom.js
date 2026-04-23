@@ -61,8 +61,7 @@ fetch('https://www.cloudflare.com/cdn-cgi/trace')
     const flagUrl = `https://flagcdn.com/48x36/${countryCode}.png`;
 
     document.getElementById('visitor-info').innerHTML = `
-      <p>Your country:</p>
-      <img src="${flagUrl}" />
+      <img src="${flagUrl}" /> <span class="text-muted text-small">Posting From: </span> 
       <strong>${countryCode.toUpperCase()}</strong>
     `;
   });
