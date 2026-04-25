@@ -226,6 +226,16 @@
 
     <!-- <div id="header"></div> -->
 
+    <div id="cookie-modal" class="cookie-banner">
+        <p>This site uses cookies to ensure you get the best experience. 
+          <a href="/privacy-policy">Learn more</a>
+        </p>
+        <div class="cookie-buttons">
+            <button id="accept-cookies" class="btn-accept">Accept</button>
+            <button id="decline-cookies" class="btn-decline">Decline</button>
+        </div>
+    </div>
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -279,6 +289,28 @@
     }
 
     type();
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const cookieModal = document.getElementById("cookie-modal");
+        const acceptBtn = document.getElementById("accept-cookies");
+        const declineBtn = document.getElementById("decline-cookies");
+
+        // Check if the user has already interacted with the modal
+        if (!localStorage.getItem("cookieConsent")) {
+            cookieModal.style.display = "flex";
+        }
+
+        acceptBtn.addEventListener("click", function () {
+            localStorage.setItem("cookieConsent", "accepted");
+            cookieModal.style.display = "none";
+            // Logic to trigger analytics (Google Analytics, etc.) goes here
+        });
+
+        declineBtn.addEventListener("click", function () {
+            localStorage.setItem("cookieConsent", "declined");
+            cookieModal.style.display = "none";
+        });
+    });
   </script>
   
 </body>
