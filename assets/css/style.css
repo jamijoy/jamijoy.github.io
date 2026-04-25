@@ -427,7 +427,7 @@ span {
 
 @media (max-height: 600px) {
   #hero {
-    height: 200vh;
+    /* height: 200vh; */
   }
 }
 
@@ -1482,4 +1482,14 @@ section {
 .footer .copyrights .credits a {
   letter-spacing: 0;
   color: #71c55d;
+}
+
+.bn-btn {
+  color: #71c55d;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: 8s;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
 }
