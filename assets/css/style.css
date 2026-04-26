@@ -638,6 +638,21 @@ section {
   .breadcrumbs ol li {
     display: inline-block;
   }
+
+  .cookie-banner {
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    border-radius: 10px;
+    text-align: center;
+    gap: 15px;
+    transition: all 2s ease-in-out;
+    position: fixed;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+  }
 }
 
 /* Get Started Section
@@ -1500,10 +1515,10 @@ section {
   color: #fff;
 }
 
-.cookie-banner {
+@media (min-width: 768px) {
+  .cookie-banner {
     position: fixed;
     bottom: 20px;
-    /* left: 20px; */
     right: 20px;
     width: 50%;
     background: rgba(0,0,0,0.8); /* #1a1a1a */
@@ -1516,8 +1531,8 @@ section {
     box-shadow: 0 4px 15px rgba(0,0,0,0.8);
     font-weight: bold;
     transition: all 2s ease-in-out;
-    /* text-shadow: #000; */
     z-index: 1000;
+  }
 }
 
 .cookie-text {
