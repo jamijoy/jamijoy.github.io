@@ -1503,17 +1503,27 @@ section {
 .cookie-banner {
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    /* left: 20px; */
     right: 20px;
-    background: #1a1a1a;
-    color: #fff;
+    width: 50%;
+    background: rgba(0,0,0,0.8); /* #1a1a1a */
+    color: #71c55d;
     padding: 20px;
     display: none; /* Hidden by default */
     justify-content: space-between;
     align-items: center;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    font-weight: bold;
+    transition: all 2s ease-in-out;
+    /* text-shadow: #000; */
     z-index: 1000;
+}
+
+.cookie-text {
+    font-size: 14px;
+    margin-right: 20px;
+    color: #71c55d;
 }
 
 .cookie-buttons {
@@ -1524,8 +1534,9 @@ section {
 .btn-accept {
     background: #007bff;
     color: white;
+    font-size: small;
     border: none;
-    padding: 8px 16px;
+    padding: 4px 8px;
     cursor: pointer;
     border-radius: 4px;
 }
@@ -1533,8 +1544,9 @@ section {
 .btn-decline {
     background: transparent;
     color: #ccc;
+    font-size: small;
     border: 1px solid #444;
-    padding: 8px 16px;
+    padding: 4px 8px;
     cursor: pointer;
     border-radius: 4px;
 }
