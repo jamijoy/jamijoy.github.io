@@ -50,6 +50,7 @@ fetch('https://api.ipify.org?format=json')
   .then(res => res.json())
   .then(data => {
     document.getElementById('ip-address').textContent = `Visitor IP: ${data.ip}`;
+    localStorage.setItem("visitor-ip", `Visitor IP: ${data.ip}`);
   });
 
 

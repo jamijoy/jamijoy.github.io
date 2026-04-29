@@ -94,26 +94,6 @@
   <!-- Template Main JS File -->
   <script src="/../assets/js/main.js"></script>
   <script src="/../assets/js/custom.js"></script>
-
-  <script>
-    
-    function updateTime() {
-      const options = { timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-      const bdTime = new Intl.DateTimeFormat('en-US', options).format(new Date());
-      document.getElementById('bd-time').textContent = bdTime;
-
-      const optionsUsa = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-      const usaTime = new Intl.DateTimeFormat('en-US', optionsUsa).format(new Date());
-      document.getElementById('usa-time').textContent = usaTime;
-
-      const optionsUk = { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-      const ukTime = new Intl.DateTimeFormat('en-US', optionsUk).format(new Date());
-      document.getElementById('uk-time').textContent = ukTime;
-    }
-
-    setInterval(updateTime, 1000);
-    updateTime();
-  </script>
   
 </body>
 

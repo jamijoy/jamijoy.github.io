@@ -89,3 +89,10 @@
     </div>
 
   </footer><!-- End  Footer -->
+
+  <script>
+      if (localStorage.getItem("visitor-ip")) {
+          document.getElementById('ip-address').textContent = `Visitor IP: ${localStorage.getItem("visitor-ip")}`;
+      }
+        
+  </script>
