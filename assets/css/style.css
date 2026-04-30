@@ -411,7 +411,7 @@ span {
   background-size: 100%;
   position: relative;
   margin-top: 40px;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 
 @media (min-width: 1025px) {
@@ -604,6 +604,20 @@ section {
   font-weight: 300;
   margin-bottom: 30px;
   text-transform: capitalize;
+}
+
+.about-bullet-points {
+  margin-left: 200px;
+}
+
+@media (max-width: 768px) {
+  .about-bullet-points {
+    margin-left: 0px;
+  }
+}
+
+.about-image-div {
+  margin-right: 0px;
 }
 
 /*--------------------------------------------------------------
