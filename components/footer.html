@@ -2,21 +2,7 @@
 
   <footer class="footer">
     
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-
-        <div class="swiper-slide text-center">HTML</div>
-        <div class="swiper-slide text-center">CSS</div>
-        <div class="swiper-slide text-center">JavaScript</div>
-        <div class="swiper-slide text-center">Laravel</div>
-        <div class="swiper-slide text-center">Node.js</div>
-        <div class="swiper-slide text-center">React</div>
-        <div class="swiper-slide text-center">Laravel</div>
-        <div class="swiper-slide text-center">Node.js</div>
-        <div class="swiper-slide text-center">React</div>
-
-      </div>
-    </div>
+    
 
     <div class="container">
       <div class="row">
@@ -108,31 +94,14 @@
 
   </footer><!-- End  Footer -->
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <script>
+
       if (localStorage.getItem("visitor-ip")) {
           document.getElementById('ip-address').textContent = `Visitor IP: ${localStorage.getItem("visitor-ip")}`;
       }
 
-      const swiper = new Swiper(".mySwiper", {
-
-        loop: true,
-        centeredSlides: true,
-
-        slidesPerView: "auto",
-        spaceBetween: 30,
-
-        speed: 50,
-
-        autoplay: {
-            delay: 0,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-        },
-
-        allowTouchMove: true,
-      });
+      
 
         
   </script>
