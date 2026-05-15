@@ -11,6 +11,9 @@
         <div class="swiper-slide text-center">Laravel</div>
         <div class="swiper-slide text-center">Node.js</div>
         <div class="swiper-slide text-center">React</div>
+        <div class="swiper-slide text-center">Laravel</div>
+        <div class="swiper-slide text-center">Node.js</div>
+        <div class="swiper-slide text-center">React</div>
 
       </div>
     </div>
@@ -113,29 +116,23 @@
       }
 
       const swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        centeredSlides: true,
-        loop: true,
 
-        speed: 2500,
+        loop: true,
+        centeredSlides: true,
+
+        slidesPerView: "auto",
+        spaceBetween: 30,
+
+        speed: 50,
 
         autoplay: {
-          delay: 0,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
+            delay: 0,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
         },
 
         allowTouchMove: true,
-
-        breakpoints: {
-          320: {
-            slidesPerView: 1,
-          },
-          768: {
-            slidesPerView: 3,
-          }
-        }
       });
+
         
   </script>
