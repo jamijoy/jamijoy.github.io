@@ -1612,7 +1612,7 @@ section {
     border-radius: 4px;
 }
 
-.swiper{
+/* .swiper{
   width:100%;
   padding:60px 0;
 }
@@ -1631,12 +1631,12 @@ section {
   transition:0.4s ease;
   transform:scale(0.8);
   opacity:0.5;
-}
+} */
 
 /* Center slide zoom effect */
-.swiper-slide-active{
+/* .swiper-slide-active{
   transform:scale(1.2);
   opacity:1;
   background:#71c55d;
   color:#000;
-}
+} */
