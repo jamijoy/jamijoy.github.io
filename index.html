@@ -431,8 +431,6 @@
       setTimeout(type, speed);
     }
 
-
-    
     type();
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -455,6 +453,10 @@
             localStorage.setItem("cookieConsent", "declined");
             cookieModal.style.display = "none";
         });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      new PureCounter();
     });
 
     
