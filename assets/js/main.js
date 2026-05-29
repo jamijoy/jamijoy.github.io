@@ -215,10 +215,10 @@
 // LOADER STOPPER
 
 window.addEventListener("load", function () {
+  
   setTimeout(function () {
     document.getElementById("loader").style.display = "none";
   }, 1000);
+  document.getElementById("page-content").style.display = "block";
 
-  document.documentElement.style.visibility = "visible";
-  document.documentElement.style.opacity = "1";
 });
