@@ -218,4 +218,7 @@ window.addEventListener("load", function () {
   setTimeout(function () {
     document.getElementById("loader").style.display = "none";
   }, 1000);
+
+  document.documentElement.style.visibility = "visible";
+  document.documentElement.style.opacity = "1";
 });
