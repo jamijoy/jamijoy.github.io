@@ -557,6 +557,16 @@ section {
   background-blend-mode: lighten;
 }
 
+.certification-section {
+  padding-bottom: 80px;
+  padding-top: 40px;
+  background-image: url(../img/svg/design-tool.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  background-blend-mode: lighten;
+}
+
 .assoc-logo-service>img {
   max-height: 50px;
   /* text-align: center; */
