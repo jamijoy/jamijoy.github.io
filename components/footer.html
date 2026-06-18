@@ -2,52 +2,73 @@
 
   <footer class="footer">
     
-    <!-- WhatsApp chat button -->
-    <a href="https://wa.me/8801XXXXXXXXX?text=Hi%2C%20I%20found%20your%20portfolio!"
-      target="_blank"
-      rel="noopener noreferrer"
-      title="Chat on WhatsApp"
-      style="
-        position: fixed;
-        bottom: 24px;
-        right: 24px;
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        background: #25D366;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 14px rgba(37,211,102,0.45);
-        z-index: 9999;
-        transition: transform 0.15s;
-      "
-      onmouseover="this.style.transform='scale(1.1)'"
-      onmouseout="this.style.transform='scale(1)'">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59
-        15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83
-        12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27
-        20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05
-        3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72
-        20.28 11.92C20.28 16.46 16.58 20.16 12.04 20.16C10.56 20.16
-        9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06
-        16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.51 3.67
-        12.05 3.67ZM8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65
-        7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.27C8.14 12.44
-        9.76 14.94 12.25 15.99C12.84 16.24 13.3 16.39 13.66 16.5
-        C14.25 16.68 14.79 16.65 15.22 16.58C15.7 16.5 16.68 15.96
-        16.89 15.37C17.1 14.78 17.1 14.28 17.04 14.17C16.97 14.06
-        16.8 14 16.55 13.87C16.31 13.74 15.09 13.14 14.87 13.06
-        C14.64 12.97 14.48 12.93 14.31 13.18C14.15 13.43 13.67
-        13.99 13.53 14.16C13.38 14.33 13.24 14.35 13 14.22C12.75
-        14.09 11.95 13.83 11 12.98C10.26 12.32 9.77 11.5 9.62
-        11.25C9.48 11 9.61 10.86 9.74 10.73C9.86 10.62 10 10.44
-        10.14 10.3C10.28 10.16 10.32 10.06 10.41 9.89C10.5 9.72
-        10.45 9.58 10.39 9.45C10.32 9.31 9.84 8.09 9.63 7.58
-        C9.43 7.08 9.23 7.15 9.07 7.14C8.93 7.13 8.76 7.13
-        8.53 7.13V7.33Z"/></svg>
-    </a>
+    <!--
+    ╔══════════════════════════════════════════════════════╗
+    ║         PORTFOLIO AI CHATBOT — SETUP GUIDE           ║
+    ╠══════════════════════════════════════════════════════╣
+    ║  1. Set YOUR_WHATSAPP_NUMBER below (international    ║
+    ║     format, e.g. 8801712345678 for Bangladesh)       ║
+    ║                                                      ║
+    ║  2. Set PROXY_URL to your Vercel API proxy URL       ║
+    ║     (see api/chat.js — deploy to Vercel first)       ║
+    ║                                                      ║
+    ║  3. Update SYSTEM_PROMPT with your real name,        ║
+    ║     skills, and portfolio details.                   ║
+    ║                                                      ║
+    ║  4. Copy the #wa-chat-widget div into your own       ║
+    ║     portfolio HTML, along with the <style> and       ║
+    ║     <script> blocks.                                 ║
+    ╚══════════════════════════════════════════════════════╝
+  -->
+
+  <!-- ★ PASTE THIS INTO YOUR PORTFOLIO HTML ★ -->
+    <div id="wa-chat-widget">
+
+      <div id="wa-chat-window">
+        <!-- Header -->
+        <div id="wa-chat-header">
+          <div class="avatar" id="wa-avatar">YN</div>
+          <div class="info">
+            <p class="name" id="wa-name">Your Name</p>
+            <p class="status" id="wa-status">AI assistant · online</p>
+          </div>
+          <button id="wa-close-btn" aria-label="Close chat">✕</button>
+        </div>
+
+        <!-- Messages -->
+        <div id="wa-messages"></div>
+
+        <!-- WhatsApp forward bar (shown after 2+ exchanges) -->
+        <div id="wa-forward-bar">
+          <button id="wa-forward-btn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm0 1.67c2.2 0 4.26.86 5.82 2.42 1.55 1.56 2.41 3.63 2.41 5.83 0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.19-1.16l-.3-.17-3.12.82.83-3.04-.2-.32C4.24 14.99 3.8 13.47 3.8 11.91c.01-4.54 3.71-8.24 8.24-8.24zm-3.51 5.66c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07s.89 2.4 1.02 2.57c.14.17 1.76 2.67 4.25 3.72.59.25 1.05.4 1.41.51.59.18 1.13.15 1.56.08.48-.08 1.46-.62 1.67-1.21.21-.59.21-1.09.15-1.2-.07-.11-.24-.17-.49-.3-.25-.13-1.47-.73-1.69-.81-.23-.09-.39-.13-.56.12-.16.25-.64.81-.78.98-.15.17-.29.19-.53.06-.25-.13-1.05-.39-2-.98-.74-.66-1.23-1.48-1.38-1.73-.14-.25-.01-.39.12-.52.12-.11.26-.29.4-.43.14-.14.18-.24.27-.41.09-.17.04-.31-.02-.44-.07-.14-.55-1.36-.76-1.87-.2-.5-.4-.43-.56-.44-.15-.01-.32-.01-.55-.01z"/>
+            </svg>
+            Send conversation to WhatsApp
+          </button>
+        </div>
+
+        <!-- Input -->
+        <div id="wa-input-row">
+          <input id="wa-input" type="text" placeholder="Type a message…" autocomplete="off" />
+          <button id="wa-send-btn" aria-label="Send">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Floating button -->
+      <div style="position:relative;">
+        <button id="wa-toggle-btn" aria-label="Open chat">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm0 1.67c2.2 0 4.26.86 5.82 2.42 1.55 1.56 2.41 3.63 2.41 5.83 0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.19-1.16l-.3-.17-3.12.82.83-3.04-.2-.32C4.24 14.99 3.8 13.47 3.8 11.91c.01-4.54 3.71-8.24 8.24-8.24zm-3.51 5.66c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07s.89 2.4 1.02 2.57c.14.17 1.76 2.67 4.25 3.72.59.25 1.05.4 1.41.51.59.18 1.13.15 1.56.08.48-.08 1.46-.62 1.67-1.21.21-.59.21-1.09.15-1.2-.07-.11-.24-.17-.49-.3-.25-.13-1.47-.73-1.69-.81-.23-.09-.39-.13-.56.12-.16.25-.64.81-.78.98-.15.17-.29.19-.53.06-.25-.13-1.05-.39-2-.98-.74-.66-1.23-1.48-1.38-1.73-.14-.25-.01-.39.12-.52.12-.11.26-.29.4-.43.14-.14.18-.24.27-.41.09-.17.04-.31-.02-.44-.07-.14-.55-1.36-.76-1.87-.2-.5-.4-.43-.56-.44-.15-.01-.32-.01-.55-.01z"/>
+          </svg>
+        </button>
+        <div id="wa-badge">1</div>
+      </div>
+
+    </div>
+  <!-- ★ END OF CHATBOT WIDGET ★ -->
 
 
     <div class="container">
@@ -154,6 +175,169 @@
 
       
 
+      // ════════════════════════════════════════════════
+      //  CONFIG — edit these three values
+      // ════════════════════════════════════════════════
+      const WA_PHONE   = '8801521311767';           // your WhatsApp number (international format)
+      const PROXY_URL  = 'https://YOUR-PROJECT.vercel.app/api/chat'; // your Vercel proxy URL
+      const YOUR_NAME  = 'Jami Joy';               // displayed in chat header
+      const INITIALS   = 'J';                      // avatar initials
+
+      const SYSTEM_PROMPT = `You are a friendly AI assistant on ${YOUR_NAME}'s web & app development portfolio.
+
+      Your job:
+      - Answer questions about skills: HTML, CSS, JavaScript, React, Node.js, Next.js, etc.
+      - Help visitors understand services, availability, and how to hire ${YOUR_NAME}
+      - Collect contact messages and encourage visitors to send them via WhatsApp
+      - Keep replies short and conversational (2–4 sentences max)
+      - If asked about specific projects or pricing, say "Send a WhatsApp message for details and I'll get back to you personally!"
+      - Be warm, professional, and encouraging`;
+
+      // ════════════════════════════════════════════════
+      //  State
+      // ════════════════════════════════════════════════
+      let history    = [];
+      let isOpen     = false;
+      let hasGreeted = false;
+
+      // ════════════════════════════════════════════════
+      //  DOM refs
+      // ════════════════════════════════════════════════
+      const window_el    = document.getElementById('wa-chat-window');
+      const messages_el  = document.getElementById('wa-messages');
+      const input_el     = document.getElementById('wa-input');
+      const sendBtn      = document.getElementById('wa-send-btn');
+      const toggleBtn    = document.getElementById('wa-toggle-btn');
+      const closeBtn     = document.getElementById('wa-close-btn');
+      const forwardBar   = document.getElementById('wa-forward-bar');
+      const forwardBtn   = document.getElementById('wa-forward-btn');
+      const statusEl     = document.getElementById('wa-status');
+      const badge        = document.getElementById('wa-badge');
+      const nameEl       = document.getElementById('wa-name');
+      const avatarEl     = document.getElementById('wa-avatar');
+
+      // Apply config
+      nameEl.textContent   = YOUR_NAME;
+      avatarEl.textContent = INITIALS;
+
+      // ════════════════════════════════════════════════
+      //  Helpers
+      // ════════════════════════════════════════════════
+      function addMsg(text, role) {
+        const div = document.createElement('div');
+        div.className = 'wa-msg ' + role;
+        div.textContent = text;
+        messages_el.appendChild(div);
+        messages_el.scrollTop = messages_el.scrollHeight;
+        return div;
+      }
+
+      function showTyping() {
+        const div = document.createElement('div');
+        div.className = 'wa-typing';
+        div.id = 'wa-typing';
+        div.innerHTML = '<div class="wa-dot"></div><div class="wa-dot"></div><div class="wa-dot"></div>';
+        messages_el.appendChild(div);
+        messages_el.scrollTop = messages_el.scrollHeight;
+      }
+
+      function removeTyping() {
+        const t = document.getElementById('wa-typing');
+        if (t) t.remove();
+      }
+
+      function buildWaText() {
+        const lines = Array.from(messages_el.querySelectorAll('.wa-msg')).map(m => {
+          const role = m.classList.contains('user') ? 'Visitor' : YOUR_NAME + ' (AI)';
+          return role + ': ' + m.textContent;
+        });
+        return encodeURIComponent(
+          '--- Chat from portfolio ---\n' + lines.join('\n') + '\n\n(sent via portfolio chatbot)'
+        );
+      }
+
+      // ════════════════════════════════════════════════
+      //  Open / close
+      // ════════════════════════════════════════════════
+      function openChat() {
+        isOpen = true;
+        window_el.style.display = 'flex';
+        badge.style.display = 'none';
+        input_el.focus();
+        if (!hasGreeted) {
+          hasGreeted = true;
+          addMsg('Hi there! I\'m the AI assistant for ' + YOUR_NAME + '\'s portfolio. Ask me anything about skills, services, or availability — or just leave a message!', 'bot');
+        }
+      }
+
+      function closeChat() {
+        isOpen = false;
+        window_el.style.display = 'none';
+      }
+
+      toggleBtn.addEventListener('click', () => isOpen ? closeChat() : openChat());
+      closeBtn.addEventListener('click', closeChat);
+
+      // Show badge after 3s as a nudge
+      setTimeout(() => {
+        if (!isOpen) badge.style.display = 'flex';
+      }, 3000);
+
+      // ════════════════════════════════════════════════
+      //  Send message
+      // ════════════════════════════════════════════════
+      async function sendMessage() {
+        const text = input_el.value.trim();
+        if (!text || sendBtn.disabled) return;
+        input_el.value = '';
+
+        addMsg(text, 'user');
+        history.push({ role: 'user', content: text });
+
+        if (history.length >= 4) forwardBar.style.display = 'block';
+
+        statusEl.textContent = 'typing…';
+        sendBtn.disabled = true;
+        showTyping();
+
+        try {
+          const res = await fetch(PROXY_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messages: history, system: SYSTEM_PROMPT })
+          });
+
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+
+          const data = await res.json();
+          removeTyping();
+
+          const reply = (data.content || []).map(b => b.text || '').join('').trim()
+                      || 'Sorry, I had a hiccup. Please try again or send a WhatsApp message!';
+
+          history.push({ role: 'assistant', content: reply });
+          addMsg(reply, 'bot');
+          statusEl.textContent = 'AI assistant · online';
+
+        } catch (err) {
+          removeTyping();
+          addMsg('Oops — connection issue. You can reach me directly on WhatsApp using the button below!', 'error');
+          forwardBar.style.display = 'block';
+          statusEl.textContent = 'AI assistant · online';
+          console.error('Chatbot error:', err);
+        }
+
+        sendBtn.disabled = false;
+        input_el.focus();
+      }
+
+      sendBtn.addEventListener('click', sendMessage);
+      input_el.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+
+      // WhatsApp forward
+      forwardBtn.addEventListener('click', () => {
+        window.open('https://wa.me/' + WA_PHONE + '?text=' + buildWaText(), '_blank');
+      });
         
   </script>
 

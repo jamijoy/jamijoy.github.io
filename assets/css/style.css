@@ -1702,3 +1702,222 @@ section {
     transform: rotate(360deg);
   }
 }
+
+/* ── Chatbot widget styles ── */
+#wa-chat-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Chat window */
+#wa-chat-window {
+  width: 340px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+}
+
+/* Header */
+#wa-chat-header {
+  background: #25D366;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#wa-chat-header .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+}
+#wa-chat-header .info .name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 2px;
+}
+#wa-chat-header .info .status {
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
+}
+#wa-close-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.85);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+}
+
+/* Messages area */
+#wa-messages {
+  background: #ece5dd;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 300px;
+  overflow-y: auto;
+}
+.wa-msg {
+  max-width: 82%;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 12px;
+  word-break: break-word;
+}
+.wa-msg.bot {
+  background: #fff;
+  color: #111;
+  border-radius: 0 12px 12px 12px;
+  align-self: flex-start;
+}
+.wa-msg.user {
+  background: #dcf8c6;
+  color: #111;
+  border-radius: 12px 0 12px 12px;
+  align-self: flex-end;
+}
+.wa-msg.error {
+  background: #fff3cd;
+  color: #856404;
+  border-radius: 0 12px 12px 12px;
+  align-self: flex-start;
+  font-size: 13px;
+}
+/* Typing dots */
+.wa-typing {
+  background: #fff;
+  border-radius: 0 12px 12px 12px;
+  align-self: flex-start;
+  padding: 10px 14px;
+  display: flex;
+  gap: 4px;
+}
+.wa-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #aaa;
+  animation: wa-blink 1.2s infinite;
+}
+.wa-dot:nth-child(2) { animation-delay: 0.2s; }
+.wa-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes wa-blink {
+  0%, 80%, 100% { opacity: 0.2; }
+  40%           { opacity: 1;   }
+}
+
+/* WhatsApp forward button */
+#wa-forward-bar {
+  display: none;
+  padding: 8px 12px;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+#wa-forward-btn {
+  width: 100%;
+  padding: 9px;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+}
+#wa-forward-btn:hover { background: #1ebe5c; }
+
+/* Input row */
+#wa-input-row {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #f0f0f0;
+  border-top: 1px solid #ddd;
+}
+#wa-input {
+  flex: 1;
+  border: none;
+  border-radius: 20px;
+  padding: 9px 14px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+#wa-send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #25D366;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+#wa-send-btn:disabled { background: #aaa; cursor: not-allowed; }
+#wa-send-btn svg { width: 18px; height: 18px; fill: #fff; }
+
+/* Floating toggle button */
+#wa-toggle-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(37,211,102,0.45);
+  transition: transform 0.15s;
+}
+#wa-toggle-btn:hover { transform: scale(1.08); }
+#wa-toggle-btn svg { width: 30px; height: 30px; fill: #fff; }
+
+/* Unread badge */
+#wa-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+}
