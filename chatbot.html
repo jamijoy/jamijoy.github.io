@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Chatbot</title>
+  <style>
+    /* ── Chatbot widget styles ── */
+    #wa-chat-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    /* Chat window */
+    #wa-chat-window {
+      width: 340px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+    }
+
+    /* Header */
+    #wa-chat-header {
+      background: #25D366;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    #wa-chat-header .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    #wa-chat-header .info .name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 2px;
+    }
+    #wa-chat-header .info .status {
+      font-size: 12px;
+      color: rgba(255,255,255,0.85);
+      margin: 0;
+    }
+    #wa-close-btn {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+      padding: 0;
+    }
+
+    /* Messages area */
+    #wa-messages {
+      background: #ece5dd;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 300px;
+      overflow-y: auto;
+    }
+    .wa-msg {
+      max-width: 82%;
+      padding: 8px 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      border-radius: 12px;
+      word-break: break-word;
+    }
+    .wa-msg.bot {
+      background: #fff;
+      color: #111;
+      border-radius: 0 12px 12px 12px;
+      align-self: flex-start;
+    }
+    .wa-msg.user {
+      background: #dcf8c6;
+      color: #111;
+      border-radius: 12px 0 12px 12px;
+      align-self: flex-end;
+    }
+    .wa-msg.error {
+      background: #fff3cd;
+      color: #856404;
+      border-radius: 0 12px 12px 12px;
+      align-self: flex-start;
+      font-size: 13px;
+    }
+    /* Typing dots */
+    .wa-typing {
+      background: #fff;
+      border-radius: 0 12px 12px 12px;
+      align-self: flex-start;
+      padding: 10px 14px;
+      display: flex;
+      gap: 4px;
+    }
+    .wa-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #aaa;
+      animation: wa-blink 1.2s infinite;
+    }
+    .wa-dot:nth-child(2) { animation-delay: 0.2s; }
+    .wa-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes wa-blink {
+      0%, 80%, 100% { opacity: 0.2; }
+      40%           { opacity: 1;   }
+    }
+
+    /* WhatsApp forward button */
+    #wa-forward-bar {
+      display: none;
+      padding: 8px 12px;
+      background: #f9f9f9;
+      border-top: 1px solid #eee;
+    }
+    #wa-forward-btn {
+      width: 100%;
+      padding: 9px;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      text-decoration: none;
+    }
+    #wa-forward-btn:hover { background: #1ebe5c; }
+
+    /* Input row */
+    #wa-input-row {
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #f0f0f0;
+      border-top: 1px solid #ddd;
+    }
+    #wa-input {
+      flex: 1;
+      border: none;
+      border-radius: 20px;
+      padding: 9px 14px;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+    }
+    #wa-send-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #25D366;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    #wa-send-btn:disabled { background: #aaa; cursor: not-allowed; }
+    #wa-send-btn svg { width: 18px; height: 18px; fill: #fff; }
+
+    /* Floating toggle button */
+    #wa-toggle-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25D366;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(37,211,102,0.45);
+      transition: transform 0.15s;
+    }
+    #wa-toggle-btn:hover { transform: scale(1.08); }
+    #wa-toggle-btn svg { width: 30px; height: 30px; fill: #fff; }
+
+    /* Unread badge */
+    #wa-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #e74c3c;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fff;
+    }
+  </style>
+</head>
+<body>
+
+<!--
+  ╔══════════════════════════════════════════════════════╗
+  ║         PORTFOLIO AI CHATBOT — SETUP GUIDE           ║
+  ╠══════════════════════════════════════════════════════╣
+  ║  1. Set YOUR_WHATSAPP_NUMBER below (international    ║
+  ║     format, e.g. 8801712345678 for Bangladesh)       ║
+  ║                                                      ║
+  ║  2. Set PROXY_URL to your Vercel API proxy URL       ║
+  ║     (see api/chat.js — deploy to Vercel first)       ║
+  ║                                                      ║
+  ║  3. Update SYSTEM_PROMPT with your real name,        ║
+  ║     skills, and portfolio details.                   ║
+  ║                                                      ║
+  ║  4. Copy the #wa-chat-widget div into your own       ║
+  ║     portfolio HTML, along with the <style> and       ║
+  ║     <script> blocks.                                 ║
+  ╚══════════════════════════════════════════════════════╝
+-->
+
+<!-- ★ PASTE THIS INTO YOUR PORTFOLIO HTML ★ -->
+<div id="wa-chat-widget">
+
+  <div id="wa-chat-window">
+    <!-- Header -->
+    <div id="wa-chat-header">
+      <div class="avatar" id="wa-avatar">YN</div>
+      <div class="info">
+        <p class="name" id="wa-name">Your Name</p>
+        <p class="status" id="wa-status">AI assistant · online</p>
+      </div>
+      <button id="wa-close-btn" aria-label="Close chat">✕</button>
+    </div>
+
+    <!-- Messages -->
+    <div id="wa-messages"></div>
+
+    <!-- WhatsApp forward bar (shown after 2+ exchanges) -->
+    <div id="wa-forward-bar">
+      <button id="wa-forward-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm0 1.67c2.2 0 4.26.86 5.82 2.42 1.55 1.56 2.41 3.63 2.41 5.83 0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.19-1.16l-.3-.17-3.12.82.83-3.04-.2-.32C4.24 14.99 3.8 13.47 3.8 11.91c.01-4.54 3.71-8.24 8.24-8.24zm-3.51 5.66c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07s.89 2.4 1.02 2.57c.14.17 1.76 2.67 4.25 3.72.59.25 1.05.4 1.41.51.59.18 1.13.15 1.56.08.48-.08 1.46-.62 1.67-1.21.21-.59.21-1.09.15-1.2-.07-.11-.24-.17-.49-.3-.25-.13-1.47-.73-1.69-.81-.23-.09-.39-.13-.56.12-.16.25-.64.81-.78.98-.15.17-.29.19-.53.06-.25-.13-1.05-.39-2-.98-.74-.66-1.23-1.48-1.38-1.73-.14-.25-.01-.39.12-.52.12-.11.26-.29.4-.43.14-.14.18-.24.27-.41.09-.17.04-.31-.02-.44-.07-.14-.55-1.36-.76-1.87-.2-.5-.4-.43-.56-.44-.15-.01-.32-.01-.55-.01z"/>
+        </svg>
+        Send conversation to WhatsApp
+      </button>
+    </div>
+
+    <!-- Input -->
+    <div id="wa-input-row">
+      <input id="wa-input" type="text" placeholder="Type a message…" autocomplete="off" />
+      <button id="wa-send-btn" aria-label="Send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating button -->
+  <div style="position:relative;">
+    <button id="wa-toggle-btn" aria-label="Open chat">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm0 1.67c2.2 0 4.26.86 5.82 2.42 1.55 1.56 2.41 3.63 2.41 5.83 0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.19-1.16l-.3-.17-3.12.82.83-3.04-.2-.32C4.24 14.99 3.8 13.47 3.8 11.91c.01-4.54 3.71-8.24 8.24-8.24zm-3.51 5.66c-.16 0-.43.06-.66.31-.22.25-.87.86-.87 2.07s.89 2.4 1.02 2.57c.14.17 1.76 2.67 4.25 3.72.59.25 1.05.4 1.41.51.59.18 1.13.15 1.56.08.48-.08 1.46-.62 1.67-1.21.21-.59.21-1.09.15-1.2-.07-.11-.24-.17-.49-.3-.25-.13-1.47-.73-1.69-.81-.23-.09-.39-.13-.56.12-.16.25-.64.81-.78.98-.15.17-.29.19-.53.06-.25-.13-1.05-.39-2-.98-.74-.66-1.23-1.48-1.38-1.73-.14-.25-.01-.39.12-.52.12-.11.26-.29.4-.43.14-.14.18-.24.27-.41.09-.17.04-.31-.02-.44-.07-.14-.55-1.36-.76-1.87-.2-.5-.4-.43-.56-.44-.15-.01-.32-.01-.55-.01z"/>
+      </svg>
+    </button>
+    <div id="wa-badge">1</div>
+  </div>
+
+</div>
+<!-- ★ END OF CHATBOT WIDGET ★ -->
+
+
+<script>
+  // ════════════════════════════════════════════════
+  //  CONFIG — edit these three values
+  // ════════════════════════════════════════════════
+  const WA_PHONE   = '8801XXXXXXXXX';           // your WhatsApp number (international format)
+  const PROXY_URL  = 'https://YOUR-PROJECT.vercel.app/api/chat'; // your Vercel proxy URL
+  const YOUR_NAME  = 'Your Name';               // displayed in chat header
+  const INITIALS   = 'YN';                      // avatar initials
+
+  const SYSTEM_PROMPT = `You are a friendly AI assistant on ${YOUR_NAME}'s web & app development portfolio.
+
+Your job:
+- Answer questions about skills: HTML, CSS, JavaScript, React, Node.js, Next.js, etc.
+- Help visitors understand services, availability, and how to hire ${YOUR_NAME}
+- Collect contact messages and encourage visitors to send them via WhatsApp
+- Keep replies short and conversational (2–4 sentences max)
+- If asked about specific projects or pricing, say "Send a WhatsApp message for details and I'll get back to you personally!"
+- Be warm, professional, and encouraging`;
+
+  // ════════════════════════════════════════════════
+  //  State
+  // ════════════════════════════════════════════════
+  let history    = [];
+  let isOpen     = false;
+  let hasGreeted = false;
+
+  // ════════════════════════════════════════════════
+  //  DOM refs
+  // ════════════════════════════════════════════════
+  const window_el    = document.getElementById('wa-chat-window');
+  const messages_el  = document.getElementById('wa-messages');
+  const input_el     = document.getElementById('wa-input');
+  const sendBtn      = document.getElementById('wa-send-btn');
+  const toggleBtn    = document.getElementById('wa-toggle-btn');
+  const closeBtn     = document.getElementById('wa-close-btn');
+  const forwardBar   = document.getElementById('wa-forward-bar');
+  const forwardBtn   = document.getElementById('wa-forward-btn');
+  const statusEl     = document.getElementById('wa-status');
+  const badge        = document.getElementById('wa-badge');
+  const nameEl       = document.getElementById('wa-name');
+  const avatarEl     = document.getElementById('wa-avatar');
+
+  // Apply config
+  nameEl.textContent   = YOUR_NAME;
+  avatarEl.textContent = INITIALS;
+
+  // ════════════════════════════════════════════════
+  //  Helpers
+  // ════════════════════════════════════════════════
+  function addMsg(text, role) {
+    const div = document.createElement('div');
+    div.className = 'wa-msg ' + role;
+    div.textContent = text;
+    messages_el.appendChild(div);
+    messages_el.scrollTop = messages_el.scrollHeight;
+    return div;
+  }
+
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'wa-typing';
+    div.id = 'wa-typing';
+    div.innerHTML = '<div class="wa-dot"></div><div class="wa-dot"></div><div class="wa-dot"></div>';
+    messages_el.appendChild(div);
+    messages_el.scrollTop = messages_el.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('wa-typing');
+    if (t) t.remove();
+  }
+
+  function buildWaText() {
+    const lines = Array.from(messages_el.querySelectorAll('.wa-msg')).map(m => {
+      const role = m.classList.contains('user') ? 'Visitor' : YOUR_NAME + ' (AI)';
+      return role + ': ' + m.textContent;
+    });
+    return encodeURIComponent(
+      '--- Chat from portfolio ---\n' + lines.join('\n') + '\n\n(sent via portfolio chatbot)'
+    );
+  }
+
+  // ════════════════════════════════════════════════
+  //  Open / close
+  // ════════════════════════════════════════════════
+  function openChat() {
+    isOpen = true;
+    window_el.style.display = 'flex';
+    badge.style.display = 'none';
+    input_el.focus();
+    if (!hasGreeted) {
+      hasGreeted = true;
+      addMsg('Hi there! I\'m the AI assistant for ' + YOUR_NAME + '\'s portfolio. Ask me anything about skills, services, or availability — or just leave a message!', 'bot');
+    }
+  }
+
+  function closeChat() {
+    isOpen = false;
+    window_el.style.display = 'none';
+  }
+
+  toggleBtn.addEventListener('click', () => isOpen ? closeChat() : openChat());
+  closeBtn.addEventListener('click', closeChat);
+
+  // Show badge after 3s as a nudge
+  setTimeout(() => {
+    if (!isOpen) badge.style.display = 'flex';
+  }, 3000);
+
+  // ════════════════════════════════════════════════
+  //  Send message
+  // ════════════════════════════════════════════════
+  async function sendMessage() {
+    const text = input_el.value.trim();
+    if (!text || sendBtn.disabled) return;
+    input_el.value = '';
+
+    addMsg(text, 'user');
+    history.push({ role: 'user', content: text });
+
+    if (history.length >= 4) forwardBar.style.display = 'block';
+
+    statusEl.textContent = 'typing…';
+    sendBtn.disabled = true;
+    showTyping();
+
+    try {
+      const res = await fetch(PROXY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history, system: SYSTEM_PROMPT })
+      });
+
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+
+      const data = await res.json();
+      removeTyping();
+
+      const reply = (data.content || []).map(b => b.text || '').join('').trim()
+                  || 'Sorry, I had a hiccup. Please try again or send a WhatsApp message!';
+
+      history.push({ role: 'assistant', content: reply });
+      addMsg(reply, 'bot');
+      statusEl.textContent = 'AI assistant · online';
+
+    } catch (err) {
+      removeTyping();
+      addMsg('Oops — connection issue. You can reach me directly on WhatsApp using the button below!', 'error');
+      forwardBar.style.display = 'block';
+      statusEl.textContent = 'AI assistant · online';
+      console.error('Chatbot error:', err);
+    }
+
+    sendBtn.disabled = false;
+    input_el.focus();
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input_el.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+
+  // WhatsApp forward
+  forwardBtn.addEventListener('click', () => {
+    window.open('https://wa.me/' + WA_PHONE + '?text=' + buildWaText(), '_blank');
+  });
+</script>
+
+</body>
+</html>
