@@ -168,6 +168,7 @@ fetch('https://www.cloudflare.com/cdn-cgi/trace')
         window_el.style.display = 'none';
       }
 
+      $(toggleBtn).on('click', () => isOpen ? closeChat() : openChat());
       toggleBtn.addEventListener('click', () => isOpen ? closeChat() : openChat());
       closeBtn.addEventListener('click', closeChat);
 
