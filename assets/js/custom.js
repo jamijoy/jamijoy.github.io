@@ -109,8 +109,8 @@ fetch('https://www.cloudflare.com/cdn-cgi/trace')
       const avatarEl     = document.getElementById('wa-avatar');
 
       // Apply config
-      nameEl.textContent   = "Jami Joy";
-      avatarEl.textContent = "J";
+      nameEl.textContent   = YOUR_NAME;
+      avatarEl.textContent = INITIALS;
 
       // ════════════════════════════════════════════════
       //  Helpers
@@ -167,6 +167,12 @@ fetch('https://www.cloudflare.com/cdn-cgi/trace')
         isOpen = false;
         window_el.style.display = 'none';
       }
+
+      // ════════════════════════════════════════════════
+      //  Event listeners
+      // ════════════════════════════════════════════════
+      console.log('here......................');
+      
 
       $('#wa-toggle-btn').click(() => isOpen ? closeChat() : openChat());
       $( '#wa-toggle-btn' ).on('click', () => isOpen ? closeChat() : openChat());
