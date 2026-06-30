@@ -85,6 +85,8 @@ fetch('https://www.cloudflare.com/cdn-cgi/trace')
       - If asked about specific projects or pricing, say "Send a WhatsApp message for details and I'll get back to you personally!"
       - Be warm, professional, and encouraging`;
 
+      
+
       // ════════════════════════════════════════════════
       //  State
       // ════════════════════════════════════════════════
@@ -107,6 +109,11 @@ fetch('https://www.cloudflare.com/cdn-cgi/trace')
       const badge        = document.getElementById('wa-badge');
       const nameEl       = document.getElementById('wa-name');
       const avatarEl     = document.getElementById('wa-avatar');
+
+      // test document.getElementById('wa-name') if this exists
+      if (nameEl) {
+        alert('wa-name element exists');
+      }
 
       // Apply config
       nameEl.textContent   = YOUR_NAME;
