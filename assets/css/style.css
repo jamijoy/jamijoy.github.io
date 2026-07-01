@@ -1706,8 +1706,8 @@ section {
 /* ── Chatbot widget styles ── */
 #wa-chat-widget {
   position: fixed;
-  bottom: 60px;
-  right: 12px;
+  bottom: 30px;
+  left: 16px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;

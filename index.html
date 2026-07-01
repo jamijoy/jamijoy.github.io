@@ -643,8 +643,6 @@
 
     document.addEventListener("DOMContentLoaded", function () {
 
-        console.log('here......................');
-
         const cookieModal = document.getElementById("cookie-modal");
         const acceptBtn = document.getElementById("accept-cookies");
         const declineBtn = document.getElementById("decline-cookies");
@@ -671,10 +669,11 @@
         // ════════════════════════════════════════════════
         //  CONFIG — edit these three values
         // ════════════════════════════════════════════════
-        const WA_PHONE   = '8801521311767';           // your WhatsApp number (international format)
-        const PROXY_URL  = 'https://YOUR-PROJECT.vercel.app/api/chat'; // your Vercel proxy URL
-        const YOUR_NAME  = 'Jami Joy';               // displayed in chat header
-        const INITIALS   = 'J';                      // avatar initials
+
+        const WA_PHONE   = '8801521311767';                             // your WhatsApp number (international format)
+        const PROXY_URL  = 'https://YOUR-PROJECT.vercel.app/api/chat';  // your Vercel proxy URL
+        const YOUR_NAME  = 'Jami Joy';                                  // displayed in chat header
+        const INITIALS   = 'J';                                         // avatar initials
 
         const SYSTEM_PROMPT = `You are a friendly AI assistant on ${YOUR_NAME}'s web & app development portfolio.
 
@@ -689,6 +688,7 @@
         // ════════════════════════════════════════════════
         //  State
         // ════════════════════════════════════════════════
+
         let history    = [];
         let isOpen     = false;
         let hasGreeted = false;
@@ -696,6 +696,7 @@
         // ════════════════════════════════════════════════
         //  DOM refs
         // ════════════════════════════════════════════════
+
         const window_el    = document.getElementById('wa-chat-window');
         const messages_el  = document.getElementById('wa-messages');
         const input_el     = document.getElementById('wa-input');
@@ -716,6 +717,7 @@
         // ════════════════════════════════════════════════
         //  Helpers
         // ════════════════════════════════════════════════
+
         function addMsg(text, role) {
           const div = document.createElement('div');
           div.className = 'wa-msg ' + role;
@@ -724,7 +726,7 @@
           messages_el.scrollTop = messages_el.scrollHeight;
           return div;
         }
-
+ 
         function showTyping() {
           const div = document.createElement('div');
           div.className = 'wa-typing';
@@ -752,8 +754,9 @@
         // ════════════════════════════════════════════════
         //  Open / close
         // ════════════════════════════════════════════════
+
         function openChat() {
-          alert("Hello! Welcome to my portfolio chatbot. How can I assist you today?");
+          
           isOpen = true;
           window_el.style.display = 'flex';
           badge.style.display = 'none';
@@ -787,6 +790,7 @@
         // ════════════════════════════════════════════════
         //  Send message
         // ════════════════════════════════════════════════
+
         async function sendMessage() {
           const text = input_el.value.trim();
           if (!text || sendBtn.disabled) return;
