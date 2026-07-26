@@ -68,7 +68,7 @@
           <div class="row">
             <div class="col-md-6 col-lg-6 d-flex justify-content-center align-items-center" data-aos="zoom-in" data-aos-delay="100">
               <div class="p-4 py-4">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/oq6j1ReqP8g?si=meRGrYrC2tHNi6zN&amp;controls=0&amp;start=18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/k2maqlyUuVw?si=JCC7Y-zQ3wGMyL05&amp;controls=0&amp;start=18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
             </div>
             <div class="col-md-6 col-lg-6" data-aos="zoom-in" data-aos-delay="200">
@@ -85,6 +85,314 @@
           </div>
         
       </div>
+      </section>
+
+      <!-- 
+        PROJECTS SHOWCASE SECTION
+        Drop this into your portfolio site. It's self-contained (styles included).
+        Swap the placeholder project data in the HTML below with your own.
+      -->
+      <section class="proj" id="work">
+        <style>
+          .proj {
+            --ink: #0B1220;
+            --slate: #5B6472;
+            --slate-light: #8993A1;
+            --line: #E3E7EC;
+            --surface: #FFFFFF;
+            --canvas: #F7F8FA;
+            --accent: #1D4ED8;
+            --accent-tint: #EEF2FF;
+            --up: #0F9D58;
+            --down: #C0362C;
+
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--canvas);
+            color: var(--ink);
+            padding: 96px 24px;
+          }
+
+          .proj * { box-sizing: border-box; }
+
+          .proj__inner {
+            max-width: 1120px;
+            margin: 0 auto;
+          }
+
+          .proj__eyebrow {
+            font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin: 0 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+
+          .proj__eyebrow::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: inline-block;
+          }
+
+          .proj__heading {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 650;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin: 0 0 14px;
+            max-width: 640px;
+          }
+
+          .proj__sub {
+            font-size: 16px;
+            color: var(--slate);
+            max-width: 520px;
+            line-height: 1.6;
+            margin: 0 0 56px;
+          }
+
+          .proj__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+          }
+
+          @media (max-width: 760px) {
+            .proj__grid { grid-template-columns: 1fr; }
+            .proj { padding: 64px 20px; }
+          }
+
+          .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+          }
+
+          .card:hover,
+          .card:focus-within {
+            border-color: #C7D0DC;
+            box-shadow: 0 8px 24px -12px rgba(11, 18, 32, 0.14);
+            transform: translateY(-2px);
+          }
+
+          .card__top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+          }
+
+          .card__title {
+            font-size: 19px;
+            font-weight: 650;
+            letter-spacing: -0.01em;
+            margin: 0 0 4px;
+          }
+
+          .card__title a {
+            color: var(--ink);
+            text-decoration: none;
+          }
+
+          .card__title a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 3px;
+          }
+
+          .card__role {
+            font-size: 13px;
+            color: var(--slate-light);
+          }
+
+          .card__status {
+            font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--up);
+            background: rgba(15, 157, 88, 0.08);
+            border: 1px solid rgba(15, 157, 88, 0.22);
+            padding: 4px 8px;
+            border-radius: 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+          }
+
+          .card__status.beta {
+            color: #A6650A;
+            background: rgba(166, 101, 10, 0.08);
+            border-color: rgba(166, 101, 10, 0.22);
+          }
+
+          .card__desc {
+            font-size: 14.5px;
+            line-height: 1.65;
+            color: var(--slate);
+            margin: 0 0 20px;
+            flex-grow: 1;
+          }
+
+          .card__metrics {
+            display: flex;
+            gap: 18px;
+            font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+            font-size: 12.5px;
+            padding: 12px 0;
+            border-top: 1px dashed var(--line);
+            border-bottom: 1px dashed var(--line);
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+          }
+
+          .metric-up { color: var(--up); }
+          .metric-down { color: var(--down); }
+          .metric-neutral { color: var(--slate-light); }
+
+          .card__stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+          }
+
+          .tag {
+            font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.02em;
+            color: var(--slate);
+            background: var(--canvas);
+            border: 1px solid var(--line);
+            padding: 4px 9px;
+            border-radius: 5px;
+          }
+
+          .card__links {
+            display: flex;
+            gap: 18px;
+            margin-top: auto;
+          }
+
+          .card__links a {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+          }
+
+          .card__links a:hover { text-decoration: underline; }
+
+          .card__links a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 3px;
+          }
+
+          .card__links svg { width: 13px; height: 13px; }
+
+          @media (prefers-reduced-motion: reduce) {
+            .card { transition: none; }
+            .card:hover { transform: none; }
+          }
+        </style>
+
+        <div class="proj__inner">
+          <p class="proj__eyebrow">Selected Work</p>
+          <h2 class="proj__heading">Projects that shipped, scaled, and held up in production</h2>
+          <p class="proj__sub">A few things I've built recently — with the numbers that mattered when they went live.</p>
+
+          <div class="proj__grid">
+
+            <!-- Card 1 -->
+            <article class="card">
+              <div class="card__top">
+                <div>
+                  <h3 class="card__title"><a href="#">Ledgerly — Billing Platform</a></h3>
+                  <p class="card__role">Lead Backend Engineer</p>
+                </div>
+                <span class="card__status">Live</span>
+              </div>
+              <p class="card__desc">
+                Rebuilt the invoicing and payments core for a B2B SaaS product, moving from a monolith
+                job queue to an event-driven pipeline that could handle retries, partial refunds, and
+                multi-currency billing without manual reconciliation.
+              </p>
+              <div class="card__metrics">
+                <span class="metric-up">↑ 99.98% uptime</span>
+                <span class="metric-down">↓ 60% invoice errors</span>
+                <span class="metric-neutral">3.2M events/mo</span>
+              </div>
+              <div class="card__stack">
+                <span class="tag">Node.js</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">Kafka</span>
+                <span class="tag">AWS</span>
+              </div>
+              <div class="card__links">
+                <a href="#">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 4L11 8L6 12"/></svg>
+                  View case study
+                </a>
+                <a href="#">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5v-1.75c-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.04.36.32.68.94.68 1.9v2.82c0 .28.18.6.69.5A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+                  Source
+                </a>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="card">
+              <div class="card__top">
+                <div>
+                  <h3 class="card__title"><a href="#">Pulse — Ops Dashboard</a></h3>
+                  <p class="card__role">Full-Stack Engineer</p>
+                </div>
+                <span class="card__status beta">Beta</span>
+              </div>
+              <p class="card__desc">
+                A real-time monitoring dashboard for a logistics team tracking 40+ warehouse feeds.
+                Replaced a stack of spreadsheets with live charts, anomaly alerts, and a query builder
+                non-technical staff could actually use.
+              </p>
+              <div class="card__metrics">
+                <span class="metric-up">↑ 4x faster triage</span>
+                <span class="metric-neutral">40 live feeds</span>
+                <span class="metric-neutral">120ms p95</span>
+              </div>
+              <div class="card__stack">
+                <span class="tag">React</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">WebSockets</span>
+                <span class="tag">Redis</span>
+              </div>
+              <div class="card__links">
+                <a href="#">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 4L11 8L6 12"/></svg>
+                  View case study
+                </a>
+                <a href="#">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+                  Live demo
+                </a>
+              </div>
+            </article>
+
+          </div>
+        </div>
       </section>
 
       
