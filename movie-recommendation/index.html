@@ -59,6 +59,190 @@
       </div>
     </section>
 
+    <section class="hero">
+  <div class="hero__inner">
+    <p class="eyebrow">CineMatch — ML Recommendation Engine</p>
+    <h1>Find your next <span>favorite</span> film.</h1>
+    <p class="sub">Tell us what you're in the mood for. Our model matches your taste against 40,000+ titles and shows its work.</p>
+ 
+    <div class="search-row">
+      <div class="search-input">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" placeholder="Search a title, actor, or describe a mood…">
+      </div>
+      <button class="search-btn">Get recommendations</button>
+    </div>
+ 
+    <div class="chip-row">
+      <span class="chip-group-label">Filter</span>
+      <button class="chip active">All genres</button>
+      <button class="chip">Sci-Fi</button>
+      <button class="chip">Drama</button>
+      <button class="chip">Comedy</button>
+      <button class="chip">Thriller</button>
+      <button class="chip">2020s</button>
+      <button class="chip">Highly rated</button>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= RECOMMENDATION GRID ================= -->
+<section class="results">
+  <div class="results__inner">
+    <div class="results__head">
+      <div>
+        <h2>Recommended for you</h2>
+        <p>Based on your recent watches and ratings</p>
+      </div>
+      <div class="sort">
+        Sort by
+        <select>
+          <option>Match score</option>
+          <option>Release date</option>
+          <option>Rating</option>
+        </select>
+      </div>
+    </div>
+ 
+    <div class="grid" id="movieGrid">
+      <!-- cards injected by JS from the same data used in the detail panel -->
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= DETAIL PANEL ================= -->
+<div class="overlay" id="overlay"></div>
+<aside class="panel" id="panel" aria-hidden="true">
+  <div class="panel__poster">
+    <button class="panel__close" id="panelClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="panel__content">
+    <div class="panel__top">
+      <div>
+        <h3 class="panel__title" id="panelTitle">Title</h3>
+        <p class="panel__meta" id="panelMeta">Year · Genre · Runtime</p>
+      </div>
+      <div class="dial dial-lg" id="panelDial" style="--pct:92;"><span class="dial-label">92%</span></div>
+    </div>
+ 
+    <div class="panel__section">
+      <p class="panel__label">Synopsis</p>
+      <p class="panel__synopsis" id="panelSynopsis">Synopsis goes here.</p>
+    </div>
+ 
+    <div class="panel__section">
+      <p class="panel__label">Why we recommended this</p>
+      <div id="panelWhy"></div>
+    </div>
+ 
+    <div class="panel__section">
+      <p class="panel__label">Cast</p>
+      <div class="cast-row" id="panelCast"></div>
+    </div>
+ 
+    <div class="panel__actions">
+      <button class="btn-primary">Add to watchlist</button>
+      <button class="btn-secondary">Not interested</button>
+    </div>
+  </div>
+</aside>
+ 
+<script>
+  const movies = [
+    {
+      title: "Signal Loss", year: 2023, genre: "Sci-Fi", runtime: "118 min",
+      match: 92, poster: "SIGNAL LOSS",
+      synopsis: "A comms engineer on a deep-space relay station discovers a transmission that predates the mission itself — and starts to question who really sent her out there.",
+      why: ["Shares director + cinematographer with 3 titles you rated 5★", "Matches your recent 'slow-burn sci-fi' viewing pattern", "94% of similar-taste users also watched this"],
+      cast: ["Mara Islington", "Tomasz Weil", "Dana Achebe"]
+    },
+    {
+      title: "The Quiet Ledger", year: 2022, genre: "Drama", runtime: "104 min",
+      match: 87, poster: "THE QUIET LEDGER",
+      synopsis: "A small-town accountant uncovers a decades-old fraud that implicates her own family, forcing a choice between loyalty and the truth.",
+      why: ["High overlap with your 'character-driven drama' cluster", "You rated 2 films from this ensemble cast 4★+", "Consistently high completion rate among similar profiles"],
+      cast: ["Renee Okafor", "Julian Cho", "Beatrix Lund"]
+    },
+    {
+      title: "Nightshift Kings", year: 2024, genre: "Thriller", runtime: "126 min",
+      match: 81, poster: "NIGHTSHIFT KINGS",
+      synopsis: "Four warehouse workers stumble into a heist gone wrong on the last night before the building shuts down for good.",
+      why: ["Similar pacing to titles you finished in one sitting", "Shares 2 core cast members with your watch history", "Trending in your regional cohort this week"],
+      cast: ["Priya Nadar", "Sam Okonjo", "Elif Karahan"]
+    },
+    {
+      title: "Paper Moths", year: 2021, genre: "Comedy", runtime: "97 min",
+      match: 76, poster: "PAPER MOTHS",
+      synopsis: "Two estranged sisters are forced to run their late father's failing bookshop for a summer — and rediscover why they stopped speaking in the first place.",
+      why: ["Matches your affinity for dialogue-driven comedy", "Similar user cohort rated this 4.3★ average", "Complements 'family dynamics' theme in your history"],
+      cast: ["Nora Villanueva", "Theo Bergstrom"]
+    }
+  ];
+ 
+  const grid = document.getElementById('movieGrid');
+  const overlay = document.getElementById('overlay');
+  const panel = document.getElementById('panel');
+ 
+  const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+ 
+  function renderGrid() {
+    grid.innerHTML = movies.map((m, i) => `
+      <button class="movie-card" data-index="${i}">
+        <div class="poster">
+          ${m.poster}
+          <div class="dial dial-sm" style="--pct:${m.match};"><span class="dial-label">${m.match}</span></div>
+        </div>
+        <div class="movie-card__body">
+          <div class="movie-card__title">${m.title}</div>
+          <div class="movie-card__meta">${m.year} · ${m.runtime}</div>
+          <div class="movie-card__tags"><span class="tag-sm">${m.genre}</span></div>
+        </div>
+      </button>
+    `).join('');
+ 
+    grid.querySelectorAll('.movie-card').forEach(card => {
+      card.addEventListener('click', () => openPanel(movies[+card.dataset.index]));
+    });
+  }
+ 
+  function openPanel(m) {
+    document.getElementById('panelTitle').textContent = m.title;
+    document.getElementById('panelMeta').textContent = `${m.year} · ${m.genre} · ${m.runtime}`;
+    document.getElementById('panelSynopsis').textContent = m.synopsis;
+    document.getElementById('panelDial').style.setProperty('--pct', m.match);
+    document.getElementById('panelDial').querySelector('.dial-label').textContent = m.match + '%';
+    document.getElementById('panelWhy').innerHTML = m.why.map(w => `
+      <div class="why-row">${checkIcon}<span>${w}</span></div>
+    `).join('');
+    document.getElementById('panelCast').innerHTML = m.cast.map(c => `<span class="cast-chip">${c}</span>`).join('');
+ 
+    overlay.classList.add('open');
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden', 'false');
+  }
+ 
+  function closePanel() {
+    overlay.classList.remove('open');
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+ 
+  document.getElementById('panelClose').addEventListener('click', closePanel);
+  overlay.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+ 
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+ 
+  renderGrid();
+</script>
+
 
     </main><!-- End #main -->
 
