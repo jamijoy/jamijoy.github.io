@@ -62,6 +62,138 @@
       </div>
     </section>
 
+    <section>
+      <div class="panel">
+ 
+        <div class="panel__header">
+          <div>
+            <p class="eyebrow">Model Performance</p>
+            <h1>Sales Forecast — Accuracy Overview</h1>
+            <p>Gradient-boosted regressor · evaluated on holdout set · last trained Aug 2, 2026, 03:14 UTC</p>
+          </div>
+          <button class="retrain-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Retrain model
+          </button>
+        </div>
+      
+        <div class="summary">
+          <div class="summary__score">
+            <span class="num">94.2</span><span class="pct">%</span>
+          </div>
+          <div class="summary__label">
+            <strong>Overall accuracy</strong>
+            Weighted across all product categories
+          </div>
+          <div class="summary__divider"></div>
+          <div class="summary__meta">
+            <div class="meta-item">
+              <div class="meta-label">Training window</div>
+              <div class="meta-value">24 months</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Forecast horizon</div>
+              <div class="meta-value">30 days</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Holdout size</div>
+              <div class="meta-value">2,140 orders</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Confidence interval</div>
+              <div class="meta-value">±4.8%</div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="metrics-grid">
+      
+          <div class="metric-card">
+            <div class="metric-card__top">
+              <span class="metric-card__name">MAE</span>
+              <span class="delta good">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                8%
+              </span>
+            </div>
+            <div class="metric-card__value">$1,284</div>
+            <div class="metric-card__desc">Mean absolute error — average $ deviation per forecasted order</div>
+          </div>
+      
+          <div class="metric-card">
+            <div class="metric-card__top">
+              <span class="metric-card__name">RMSE</span>
+              <span class="delta good">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                5%
+              </span>
+            </div>
+            <div class="metric-card__value">$1,902</div>
+            <div class="metric-card__desc">Root mean squared error — penalizes large misses more heavily</div>
+          </div>
+      
+          <div class="metric-card">
+            <div class="metric-card__top">
+              <span class="metric-card__name">MAPE</span>
+              <span class="delta bad">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                2%
+              </span>
+            </div>
+            <div class="metric-card__value">6.1%</div>
+            <div class="metric-card__desc">Mean absolute percentage error across the holdout period</div>
+          </div>
+      
+          <div class="metric-card">
+            <div class="metric-card__top">
+              <span class="metric-card__name">R² Score</span>
+              <span class="delta good">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                1%
+              </span>
+            </div>
+            <div class="metric-card__value">0.91</div>
+            <div class="metric-card__desc">Proportion of variance in actual sales explained by the model</div>
+          </div>
+      
+        </div>
+      
+        <div class="trend">
+          <div class="trend__head">
+            <h3>Predicted vs. actual — last 12 weeks</h3>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot" style="background:var(--ink)"></span>Actual</span>
+              <span class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Predicted</span>
+            </div>
+          </div>
+      
+          <svg viewBox="0 0 640 160" preserveAspectRatio="none">
+            <!-- gridlines -->
+            <line x1="0" y1="30" x2="640" y2="30" stroke="#EEEFF3" stroke-width="1"/>
+            <line x1="0" y1="80" x2="640" y2="80" stroke="#EEEFF3" stroke-width="1"/>
+            <line x1="0" y1="130" x2="640" y2="130" stroke="#EEEFF3" stroke-width="1"/>
+      
+            <!-- actual line -->
+            <polyline fill="none" stroke="#12131A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              points="0,90 58,70 116,95 175,60 233,75 291,40 349,55 407,35 465,50 524,30 582,45 640,25" />
+      
+            <!-- predicted line -->
+            <polyline fill="none" stroke="#2952E3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0"
+              points="0,100 58,78 116,85 175,68 233,82 291,50 349,48 407,42 465,58 524,38 582,40 640,32" />
+      
+            <!-- predicted dots -->
+            <g fill="#2952E3">
+              <circle cx="0" cy="100" r="3"/><circle cx="58" cy="78" r="3"/><circle cx="116" cy="85" r="3"/>
+              <circle cx="175" cy="68" r="3"/><circle cx="233" cy="82" r="3"/><circle cx="291" cy="50" r="3"/>
+              <circle cx="349" cy="48" r="3"/><circle cx="407" cy="42" r="3"/><circle cx="465" cy="58" r="3"/>
+              <circle cx="524" cy="38" r="3"/><circle cx="582" cy="40" r="3"/><circle cx="640" cy="32" r="3"/>
+            </g>
+          </svg>
+        </div>
+      
+      </div>
+    </section>
+
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
