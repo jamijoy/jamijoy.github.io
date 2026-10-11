@@ -8,9 +8,28 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+:root {
+  --primary: #4f46e5;
+  --primary-dark: #312e81;
+  --accent: #15b8a6;
+  --bg-soft: #f4f7ff;
+  --surface: rgba(255, 255, 255, 0.8);
+  --surface-strong: #ffffff;
+  --text: #1f2937;
+  --muted: #52607a;
+  --line: rgba(148, 163, 184, 0.24);
+  --shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 12px 30px rgba(79, 70, 229, 0.10);
+}
+
 body {
-  background-color: #fff;
-  color: #333;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 100%);
+  color: var(--text);
+  font-family: "Roboto", sans-serif;
+}
+
+main#main {
+  padding-bottom: 40px;
 }
 
 h1,
@@ -406,12 +425,11 @@ span {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  /* height: calc(100vh - 40px); */
-  background: url(../img/hero-bg.png) center bottom no-repeat;
-  background-size: 100%;
+  background: radial-gradient(circle at top, rgba(79, 70, 229, 0.18) 0%, rgba(21, 184, 166, 0.08) 30%, transparent 60%), linear-gradient(135deg, #eef4ff 0%, #f7fafc 50%, #ecfeff 100%);
   position: relative;
-  margin-top: 40px;
-  /* margin-bottom: 40px; */
+  margin-top: 0;
+  padding: 90px 0 80px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
 }
 
 @media (min-width: 1025px) {
@@ -422,19 +440,12 @@ span {
 
 @media (min-width: 1025px) and (max-height: 768px) {
   #hero {
-    height: 110vh;
-    padding: 0 0 40px 0;
-  }
-}
-
-@media (max-height: 600px) {
-  #hero {
-    /* height: 200vh; */
+    min-height: 90vh;
+    padding: 80px 0 60px 0;
   }
 }
 
 #hero .hero-container {
-  /* position: absolute; */
   bottom: 0;
   top: 0;
   left: 0;
@@ -444,85 +455,130 @@ span {
   align-items: center;
   flex-direction: column;
   text-align: center;
+  gap: 18px;
+  padding: 0 20px;
 }
 
 #hero h1 {
-  margin: 0 0 10px 0;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 56px;
+  margin: 0;
+  font-size: clamp(2.5rem, 5vw, 4.7rem);
+  font-weight: 800;
+  line-height: 1.05;
   font-family: "Philosopher", sans-serif;
-  color: #71c55d;
-}
-
-@media (max-width: 768px) {
-  #hero h1 {
-    font-size: 28px;
-    line-height: 36px;
-  }
+  color: var(--primary-dark);
+  letter-spacing: -0.04em;
 }
 
 #hero h2 {
-  color: #777;
-  margin-bottom: 30px;
-  font-size: 20px;
+  color: var(--muted);
+  margin-bottom: 0;
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
   font-family: "Roboto", sans-serif;
-  font-weight: 300;
-}
-
-@media (max-width: 768px) {
-  #hero h2 {
-    font-size: 18px;
-    line-height: 24px;
-    margin-bottom: 30px;
-  }
+  font-weight: 400;
 }
 
 #hero img {
-  max-width: 95%;
-  margin-bottom: 30px;
+  max-width: min(320px, 75vw);
+  width: 100%;
+  margin-bottom: 8px;
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 #hero .btn-get-started {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
-  font-weight: 400;
-  font-size: 13px;
-  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.12rem;
   display: inline-block;
-  padding: 11px 36px;
-  border-radius: 50px;
-  transition: 0.5s;
-  margin-bottom: 30px;
-  border: 2px solid #71c55d;
-  background: #fff;
-  color: #71c55d;
+  padding: 15px 34px;
+  border-radius: 999px;
+  transition: 0.35s ease;
+  margin-bottom: 8px;
+  border: 1px solid rgba(79, 70, 229, 0.18);
+  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+  color: #fff;
   text-decoration: none;
+  box-shadow: var(--shadow-soft);
 }
 
 #hero .btn-get-started:hover {
-  background: #71c55d;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(79, 70, 229, 0.25);
   color: #fff;
 }
 
-#hero .btns a {
-  color: #555;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin: 4px 20px;
-  text-decoration: none;
-  transition: 0.3s;
+#hero .btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 18px;
+  margin-top: 6px;
 }
 
-@media (max-width: 575px) {
-  #hero .btns a {
-    margin: 4px 8px;
-  }
+#hero .btns a {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 12px 18px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
 }
 
 #hero .btns a:hover {
-  color: #71c55d;
+  color: var(--primary);
+  transform: translateY(-2px);
+  border-color: rgba(79, 70, 229, 0.24);
+  box-shadow: 0 14px 28px rgba(79, 70, 229, 0.16);
+}
+
+@media (max-width: 768px) {
+  #hero {
+    padding: 72px 0 62px;
+  }
+
+  #hero h1 {
+    font-size: clamp(2.2rem, 9vw, 3.2rem);
+    line-height: 1.15;
+  }
+
+  #hero .btns {
+    width: min(100%, 420px);
+  }
+
+  #hero .btns a {
+    flex: 1 1 180px;
+    text-align: center;
+    max-width: 210px;
+  }
+}
+
+@media (max-width: 575px) {
+  #hero .hero-container {
+    padding: 0 16px;
+  }
+
+  #hero .btns a {
+    flex-basis: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  #hero .btn-get-started {
+    width: 100%;
+    max-width: 260px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -537,54 +593,58 @@ section {
   padding-top: 80px;
 }
 
-.assoc-section {
-  padding-bottom: 80px;
-  padding-top: 40px;
-  background-image: url(../img/svg/cloud.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  background-blend-mode: lighten;
-}
-
-.tech-tools-section {
-  padding-bottom: 80px;
-  padding-top: 40px;
-  background-image: url(../img/svg/code.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  background-blend-mode: lighten;
-}
-
+.assoc-section,
+.tech-tools-section,
 .certification-section {
-  padding-bottom: 80px;
-  padding-top: 40px;
-  background-image: url(../img/svg/design-tool.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  background-blend-mode: lighten;
+  padding: 80px 0 72px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 30px;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.assoc-logo-service,
+.assoc-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 118px;
+  width: 100%;
+  padding: 18px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 15px 32px rgba(15, 23, 42, 0.04);
+  transition: all 0.35s ease;
 }
 
 .assoc-logo-service>img {
-  max-height: 50px;
-  /* text-align: center; */
-  transition: all 0.8s ease-in-out;
+  max-height: 60px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  transition: all 0.3s ease;
 }
 
 .assoc-logo {
-  max-width: 100%;
-  padding: 15px;
-  filter: grayscale(0);
-  transition: all 0.8s ease-in-out;
+  min-height: 100px;
+  padding: 16px;
 }
 
-.assoc-tech-logo:hover, .assoc-logo-service>img:hover {
-  filter: grayscale(100%) brightness(150%);
-  transition: all 0.8s ease-in-out;
-  transform: translateY(-20px);
+.assoc-tech-logo {
+  width: 64px;
+  height: 64px;
+  transition: all 0.3s ease;
+}
 
+.assoc-logo-service:hover,
+.assoc-logo:hover,
+.assoc-tech-logo:hover,
+.assoc-logo-service>img:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 38px rgba(79, 70, 229, 0.12);
+  border-color: rgba(79, 70, 229, 0.18);
 }
 
 @media (max-width: 992px) {
@@ -595,34 +655,37 @@ section {
 }
 
 .section-title {
-  margin-bottom: 80px;
+  margin-bottom: 56px;
 }
 
 @media (max-width: 992px) {
   .section-title {
-    margin-bottom: 40px;
+    margin-bottom: 36px;
   }
 }
 
 .section-title h2 {
   font-family: "Roboto", sans-serif;
-  font-size: 45px;
-  font-weight: 100;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin-bottom: 16px;
   text-transform: capitalize;
+  color: var(--text);
 }
 
 .section-title .separator {
   margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
 }
 
 .separator {
-  color: #626262;
+  color: var(--muted);
   font-family: "Roboto", sans-serif;
-  font-size: 15px;
-  font-weight: 300;
-  margin-bottom: 30px;
+  font-size: 0.98rem;
+  font-weight: 400;
+  margin-bottom: 24px;
   text-transform: capitalize;
 }
 
