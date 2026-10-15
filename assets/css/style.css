@@ -732,9 +732,162 @@ section {
   font-size: 0.95rem;
 }
 
+#instrument {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(20, 184, 166, 0.07));
+  border-radius: 32px;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.05);
+}
+
+.instrument-grid {
+  margin: 0;
+}
+
+.instrument-panel,
+.instrument-visual {
+  position: relative;
+  height: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.instrument-panel {
+  padding: clamp(1.5rem, 2vw, 2.25rem);
+}
+
+.instrument-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.96), rgba(20, 184, 166, 0.92));
+}
+
+.instrument-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.08);
+  border: 1px solid rgba(79, 70, 229, 0.12);
+  color: var(--primary-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.instrument-panel h3 {
+  margin: 1rem 0 1.25rem;
+  font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--text);
+}
+
+.instrument-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.instrument-list li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 1.35rem;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.instrument-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5e13a6, #14b8a6);
+  box-shadow: 0 0 0 5px rgba(94, 19, 166, 0.08);
+}
+
+.instrument-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #5e13a6, #0ea5e9);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 12px 22px rgba(94, 19, 166, 0.18);
+}
+
+.instrument-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(94, 19, 166, 0.26);
+  color: #fff;
+}
+
+.instrument-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  background: radial-gradient(circle at top left, rgba(94, 19, 166, 0.12), rgba(20, 184, 166, 0.08) 45%, rgba(255, 255, 255, 0.9) 100%);
+  padding: 1rem;
+}
+
+.instrument-visual svg {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 18px 30px rgba(94, 19, 166, 0.12));
+}
+
 @media (max-width: 767px) {
   .cert-card {
     padding: 20px 18px 16px;
+  }
+
+  #instrument {
+    border-radius: 24px;
+  }
+
+  .instrument-panel,
+  .instrument-visual {
+    border-radius: 22px;
+  }
+
+  .instrument-panel {
+    padding: 1.25rem 1rem;
+  }
+
+  .instrument-panel h3 {
+    font-size: 1.8rem;
+  }
+
+  .instrument-list {
+    gap: 0.7rem;
+  }
+
+  .instrument-link {
+    width: 100%;
+  }
+
+  .instrument-visual {
+    min-height: 240px;
   }
 
   .cert-head {
